@@ -25,7 +25,7 @@ class _DiceAppState extends State<DiceApp> {
   int p2img = 3;
   int p3img = 1;
   int p4img = 4;
-  int count = 0;
+  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -291,12 +291,52 @@ class _DiceAppState extends State<DiceApp> {
                                       ),
                                     ),
                                     onTap: () {
-                                      if (turn == 4) {
+                                      if (turn == 4 && count < 2) {
                                         int img = Random().nextInt(5) + 1;
                                         p4img = img;
                                         player4 += img;
                                         turn = 1;
+                                        count++;
                                         setState(() {});
+                                      } else {
+                                        int winner = 1;
+                                        int score = player1;
+                                        if (score < player2) {
+                                          score = player2;
+                                          winner++;
+                                        }
+                                        if (score < player3) {
+                                          score = player3;
+                                          winner++;
+                                        }
+                                        if (score < player4) {
+                                          score = player4;
+                                          winner++;
+                                        }
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                                  title: const Text("Winner"),
+                                                  content: Text(
+                                                      "Player $winner is the Winner with Score $score"),
+                                                  actions: [
+                                                    FlatButton(
+                                                      // FlatButton widget is used to make a text to work like a button
+                                                      textColor: Colors.black,
+                                                      onPressed: () {
+                                                        player1 = player2 =
+                                                            player3 =
+                                                                player4 = 0;
+                                                        turn = 1;
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      }, // function used to perform after pressing the button
+                                                      child: const Text(
+                                                          'Play Again'),
+                                                    ),
+                                                  ],
+                                                ));
                                       }
                                     },
                                   )
