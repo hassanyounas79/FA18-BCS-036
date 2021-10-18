@@ -21,7 +21,10 @@ class _DiceAppState extends State<DiceApp> {
   int player3 = 0;
   int player4 = 0;
   int turn = 1;
-  int img = 1;
+  int p1img = 2;
+  int p2img = 3;
+  int p3img = 1;
+  int p4img = 4;
   int count = 0;
   @override
   Widget build(BuildContext context) {
@@ -33,43 +36,138 @@ class _DiceAppState extends State<DiceApp> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.blueAccent[300],
+          color: Colors.blueAccent[250],
         ),
         child: Column(
           children: [
             // Topp Players Row
             Padding(
-              padding: const EdgeInsets.only(top: 30, left: 10),
+              padding: const EdgeInsets.only(top: 25, left: 10),
               child: Row(
                 children: [
                   Column(
                     children: [
-                      const Text(
-                        "Player 1",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Score: ${player1}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                "Player 1",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Score: ${player1}",
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              // Red Box
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 5,
+                                  ),
+                                  height: 70.0,
+                                  width: 70.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: turn == 1
+                                          ? Colors.red.shade900
+                                          : Colors.grey,
+                                      width: 7,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    child: Expanded(
+                                      child: Image(
+                                        image:
+                                            AssetImage("images/face$p1img.png"),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      if (turn == 1) {
+                                        int img = Random().nextInt(5) + 1;
+                                        p1img = img;
+                                        player1 += img;
+                                        turn++;
+                                        setState(() {});
+                                      }
+                                    },
+                                  )
+                                  //Red Box End
+                                  ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
                   const SizedBox(
-                    width: 180.0,
+                    width: 100.0,
                   ),
                   Column(
                     children: [
-                      Text(
-                        "Player 2",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Score: ${player2}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                "Player 2",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Score: ${player2}",
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              // Red Box
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 5,
+                                  ),
+                                  height: 70.0,
+                                  width: 70.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: turn == 2
+                                          ? Colors.blue.shade900
+                                          : Colors.grey,
+                                      width: 7,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    child: Expanded(
+                                      child: Image(
+                                        image: AssetImage(
+                                          "images/face$p2img.png",
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      if (turn == 2) {
+                                        int img = Random().nextInt(5) + 1;
+                                        p2img = img;
+                                        player2 += img;
+                                        turn++;
+                                        setState(() {});
+                                      }
+                                    },
+                                  )
+                                  //Red Box End
+                                  ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -77,90 +175,136 @@ class _DiceAppState extends State<DiceApp> {
               ),
             ),
             //Dice
-            Padding(
-              padding: const EdgeInsets.all(150.0),
-              child: Center(
-                child: GestureDetector(
-                    onTap: () {
-                      img = Random().nextInt(6) + 1;
-                      if (turn == 1) {
-                        player1 = player1 + img;
-                        turn++;
-                      } else if (turn == 2) {
-                        player2 = player2 + img;
-                        turn++;
-                      } else if (turn == 3) {
-                        player3 = player3 + img;
-                        turn++;
-                      } else {
-                        player4 = player4 + img;
-                        turn = 1;
-                        count++;
-                      }
-                      int win = 1;
-                      if (count <= 1) {
-                        var list = [];
-                        list.add(player1);
-                        list.add(player2);
-                        list.add(player3);
-                        list.add(player4);
-                        int large = player1;
-                        for (int i = 1; i < 4; i++) {
-                          if (large > list[i]) {
-                            large = list[i];
-                            win = i;
-                          }
-                        }
 
-                        AlertDialog(
-                          title: Text("Winner"),
-                          content: Text("Player ${win} is the Winner"),
-                        );
-                        player1 = 0;
-                        player2 = 0;
-                        player3 = 0;
-                        player4 = 0;
-                        turn = 1;
-                      }
-
-                      setState(() {});
-                    },
-                    child: Image.asset('images/face${img}.png')),
-              ),
-            ),
             //Down Players Row
             Padding(
-              padding: EdgeInsets.only(top: 80, left: 10),
+              padding: const EdgeInsets.only(top: 470, left: 10),
               child: Row(
                 children: [
                   Column(
                     children: [
-                      const Text(
-                        "Player 3",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Score: ${player3}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                "Player 3",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Score: ${player3}",
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              // Red Box
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 5,
+                                  ),
+                                  height: 70.0,
+                                  width: 70.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: turn == 3
+                                          ? Colors.green.shade900
+                                          : Colors.grey,
+                                      width: 7,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    child: Expanded(
+                                      child: Image(
+                                        image: AssetImage(
+                                          "images/face$p3img.png",
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      if (turn == 3) {
+                                        int img = Random().nextInt(5) + 1;
+                                        p3img = img;
+                                        player3 += img;
+                                        turn++;
+                                        setState(() {});
+                                      }
+                                    },
+                                  )
+                                  //Red Box End
+                                  ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
                   const SizedBox(
-                    width: 180.0,
+                    width: 100.0,
                   ),
                   Column(
                     children: [
-                      const Text(
-                        "Player 4",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "Score: ${player4}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          Column(
+                            children: [
+                              const Text(
+                                "Player 4",
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Score: ${player4}",
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              // Red Box
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                    left: 5,
+                                  ),
+                                  height: 70.0,
+                                  width: 70.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      color: turn == 4
+                                          ? Colors.yellow.shade900
+                                          : Colors.grey,
+                                      width: 7,
+                                    ),
+                                  ),
+                                  child: GestureDetector(
+                                    child: Expanded(
+                                      child: Image(
+                                        image: AssetImage(
+                                          "images/face$p4img.png",
+                                        ),
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      if (turn == 4) {
+                                        int img = Random().nextInt(5) + 1;
+                                        p4img = img;
+                                        player4 += img;
+                                        turn = 1;
+                                        setState(() {});
+                                      }
+                                    },
+                                  )
+                                  //Red Box End
+                                  ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
