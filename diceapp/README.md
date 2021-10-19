@@ -23,4 +23,5 @@ samples, guidance on mobile development, and a full API reference.
 <img src="images/screenshot/s1.png">
 <img src="images/screenshot/s2.png">
 <img src="images/screenshot/s3.png">
+<img src="images/screenshot/icon.png">
 
