@@ -26,6 +26,8 @@ class _DiceAppState extends State<DiceApp> {
   int p3img = 1;
   int p4img = 4;
   int count = 1;
+  int six = 0;
+  int tries = 10;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,10 +92,16 @@ class _DiceAppState extends State<DiceApp> {
                                     ),
                                     onTap: () {
                                       if (turn == 1) {
-                                        int img = Random().nextInt(5) + 1;
+                                        int img = Random().nextInt(6) + 1;
                                         p1img = img;
                                         player1 += img;
-                                        turn++;
+                                        if (img == 6 && six < 2) {
+                                          six++;
+                                        } else {
+                                          turn++;
+                                          six = 0;
+                                        }
+
                                         setState(() {});
                                       }
                                     },
@@ -155,10 +163,15 @@ class _DiceAppState extends State<DiceApp> {
                                     ),
                                     onTap: () {
                                       if (turn == 2) {
-                                        int img = Random().nextInt(5) + 1;
+                                        int img = Random().nextInt(6) + 1;
                                         p2img = img;
                                         player2 += img;
-                                        turn++;
+                                        if (img == 6 && six < 2) {
+                                          six++;
+                                        } else {
+                                          turn++;
+                                          six = 0;
+                                        }
                                         setState(() {});
                                       }
                                     },
@@ -227,10 +240,15 @@ class _DiceAppState extends State<DiceApp> {
                                     ),
                                     onTap: () {
                                       if (turn == 3) {
-                                        int img = Random().nextInt(5) + 1;
+                                        int img = Random().nextInt(6) + 1;
                                         p3img = img;
                                         player3 += img;
-                                        turn++;
+                                        if (img == 6 && six < 2) {
+                                          six++;
+                                        } else {
+                                          turn++;
+                                          six = 0;
+                                        }
                                         setState(() {});
                                       }
                                     },
@@ -291,12 +309,18 @@ class _DiceAppState extends State<DiceApp> {
                                       ),
                                     ),
                                     onTap: () {
-                                      if (turn == 4 && count < 2) {
-                                        int img = Random().nextInt(5) + 1;
+                                      if (turn == 4 && count < tries) {
+                                        int img = Random().nextInt(6) + 1;
                                         p4img = img;
                                         player4 += img;
-                                        turn = 1;
-                                        count++;
+
+                                        if (img == 6 && six < 2) {
+                                          six++;
+                                        } else {
+                                          count++;
+                                          turn = 1;
+                                          six = 0;
+                                        }
                                         setState(() {});
                                       } else {
                                         int winner = 1;
