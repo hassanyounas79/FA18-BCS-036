@@ -1,115 +1,181 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import "package:flutter_colorpicker/flutter_colorpicker.dart";
+import 'package:file_picker/file_picker.dart';
+import 'package:xylophone/item.dart';
+import 'package:xylophone/xyloscreen.dart';
 
 void main() {
-  runApp(const MyApp());
+  var list;
+  runApp(MaterialApp(home: xylo(list)));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ScreenOne extends StatefulWidget {
+  const ScreenOne({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+  _ScreenOneState createState() => _ScreenOneState();
+}
+
+class _ScreenOneState extends State<ScreenOne> {
+  Color currentColor = Color(0xffffffff);
+  Color pickerColor = Color(0xff443a49);
+  String path = "";
+  static int num = 1;
+  var list = List.filled(num, items());
+  void colordialog(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Pick a color!'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: pickerColor,
+              onColorChanged: (Color c) => {
+                pickerColor = c,
+              },
+              showLabel: true,
+              pickerAreaHeightPercent: 0.8,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('Got it'),
+              onPressed: () {
+                list[index].clr = pickerColor;
+                setState(() {});
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: const Text("Xylophone App"),
+        centerTitle: true,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: Container(
+        color: currentColor,
+        width: MediaQuery.of(context).size.width,
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                onChanged: (value) => {
+                  num = value == "" ? 0 : int.parse(value),
+                },
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  label: const Text("Enter a number"),
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+              child: ElevatedButton(
+                onPressed: () => {
+                  //get the currnet focus node
+                  if (!FocusScope.of(context).hasPrimaryFocus)
+                    {
+                      //prevent Flutter from throwing an exception
+                      FocusScope.of(context)
+                          .unfocus() //unfocust from current focust, so that keyboard will dismiss
+                    },
+                  setState(
+                    () {},
+                  ),
+                },
+                child: Text("Generate"),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width - 80,
+                child: ListView.builder(
+                  itemCount: num,
+                  itemBuilder: (context, index) {
+                    return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        margin: EdgeInsets.only(
+                          top: 30,
+                        ),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              // Color Dialog
+                              onTap: () {
+                                colordialog(index);
+                              },
+                              // Color Dialog
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 20, right: 20, top: 4, bottom: 4),
+                                height: 40,
+                                width: 85,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Pick Color",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: currentColor,
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              // File Dialog
+                              onTap: () async {
+                                FilePickerResult? result =
+                                    await FilePicker.platform.pickFiles();
+
+                                if (result != null) {
+                                  PlatformFile file = result.files.first;
+                                  path = file.path.toString();
+                                  list[index].path = path;
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                              // File Dialog
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 20, right: 20, top: 4, bottom: 4),
+                                height: 40,
+                                width: 85,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Pick File",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: currentColor,
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ));
+                  },
+                ),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
