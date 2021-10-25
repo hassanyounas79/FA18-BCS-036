@@ -8,8 +8,11 @@ import 'package:xylophone/item.dart';
 import 'package:xylophone/xyloscreen.dart';
 
 void main() {
-  var list;
-  runApp(MaterialApp(home: xylo(list)));
+  runApp(
+    MaterialApp(
+      home: ScreenOne(),
+    ),
+  );
 }
 
 class ScreenOne extends StatefulWidget {
@@ -24,8 +27,9 @@ class _ScreenOneState extends State<ScreenOne> {
   Color pickerColor = Color(0xff443a49);
   String path = "";
   static int num = 1;
-  var list = List.filled(num, items());
-  void colordialog(int index) {
+  static var list;
+
+  void colordialog(int index, BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -46,7 +50,7 @@ class _ScreenOneState extends State<ScreenOne> {
               child: const Text('Got it'),
               onPressed: () {
                 list[index].clr = pickerColor;
-                setState(() {});
+                // setState(() {});
                 Navigator.of(context).pop();
               },
             ),
@@ -58,6 +62,7 @@ class _ScreenOneState extends State<ScreenOne> {
 
   @override
   Widget build(BuildContext context) {
+    list = List.generate(num, (int n) => items());
     return Scaffold(
       appBar: AppBar(
         title: const Text("Xylophone App"),
@@ -117,7 +122,7 @@ class _ScreenOneState extends State<ScreenOne> {
                             GestureDetector(
                               // Color Dialog
                               onTap: () {
-                                colordialog(index);
+                                colordialog(index, context);
                               },
                               // Color Dialog
                               child: Container(
@@ -173,6 +178,17 @@ class _ScreenOneState extends State<ScreenOne> {
                 ),
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => xylo(list),
+                  ),
+                );
+              },
+              child: Text("Goto"),
+            )
           ],
         ),
       ),
