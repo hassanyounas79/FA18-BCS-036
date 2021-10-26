@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:xylophone/main.dart';
 
 import 'item.dart';
 
@@ -23,6 +22,7 @@ class _xyloState extends State<xylo> {
   _xyloState(var list1) {
     list = list1;
   }
+  static double n = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class _xyloState extends State<xylo> {
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: (BuildContext context, int index) {
+          n = n + 15;
           return GestureDetector(
             onTap: () {
               AudioPlayer audioPlayer = AudioPlayer();
@@ -44,11 +45,15 @@ class _xyloState extends State<xylo> {
 
               playLocal();
             },
-            child: Container(
-              margin: const EdgeInsets.only(top: 5, left: 10, right: 10),
-              height: 80,
-              width: MediaQuery.of(context).size.width - 20,
-              color: list[index].clr,
+            child: Center(
+              child: Container(
+                margin: EdgeInsets.only(
+                  top: 5,
+                ),
+                height: 80,
+                width: MediaQuery.of(context).size.width - n,
+                color: list[index].clr,
+              ),
             ),
           );
         },

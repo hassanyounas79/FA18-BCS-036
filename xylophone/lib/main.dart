@@ -111,6 +111,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   itemCount: num,
                   itemBuilder: (context, index) {
                     return Container(
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(10.0),
