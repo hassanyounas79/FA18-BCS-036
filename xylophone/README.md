@@ -1,16 +1,13 @@
-# xylophone
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h5>XyloPhone App</h5>
+<h3>App Icon</h3>
+<img src="screenshots/appicon.png">
+<vedio src="screenshots/first-merge.mp4"></vedio>
+<h3>ScreenShots</h3>
+<img src="screenshots/splashscreen.png">
+<img src="screenshots/Screenshot (26).png">
+<img src="screenshots/Screenshot (27).png">
+<img src="screenshots/Screenshot (28).png">
+<img src="screenshots/Screenshot (29).png">
+<img src="screenshots/Screenshot (30).png">
+<img src="screenshots/Screenshot (31).png">
+<img src="screenshots/Screenshot (32).png">
