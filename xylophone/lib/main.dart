@@ -5,12 +5,13 @@ import 'package:flutter/services.dart';
 import "package:flutter_colorpicker/flutter_colorpicker.dart";
 import 'package:file_picker/file_picker.dart';
 import 'package:xylophone/item.dart';
+import 'package:xylophone/splash.dart';
 import 'package:xylophone/xyloscreen.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: ScreenOne(),
+      home: Splash(),
     ),
   );
 }
