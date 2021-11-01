@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quizapp/contact-us.dart';
 import 'package:quizapp/mdlresult.dart';
 import 'package:quizapp/result.dart';
 import 'package:quizapp/splash.dart';
@@ -113,7 +114,7 @@ class _QuizAppState extends State<QuizApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        onDrawerChanged: (t) {},
+        drawerEnableOpenDragGesture: true,
         appBar: AppBar(
           title: Text("Quiz App"),
           bottomOpacity: 0,
@@ -173,6 +174,19 @@ class _QuizAppState extends State<QuizApp> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Contact(),
+                      ));
+                },
+                title: Text(
+                  "Contact Us",
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
             ],
           ),
         ),

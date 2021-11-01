@@ -30,57 +30,59 @@ class Result extends StatelessWidget {
                 Text(res[index].correct.toString()),
               )
             ]));
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Center(
-              heightFactor: 2,
-              child: Text(
-                "Result",
-                style: TextStyle(fontSize: 35),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Center(
+                heightFactor: 2,
+                child: Text(
+                  "Result",
+                  style: TextStyle(fontSize: 35),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Total Questions: 10"),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Number of Attempted Questions: $attempted"),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Correct Answers: ${attempted - len}"),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Wrong Answers: $len"),
-            ),
-            Container(
-              // height: 530,
-              child: DataTable(
-                  dataRowHeight: 80,
-                  columns: [
-                    DataColumn(label: Text("Question")),
-                    DataColumn(label: Text("UserAnswer")),
-                    DataColumn(label: Text("RightAnswer")),
-                  ],
-                  rows: list),
-            ),
-            Center(
-              child: ElevatedButton(
-                child: Text("Restart Quiz"),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => QuizApp()));
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Total Questions: 10"),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Number of Attempted Questions: $attempted"),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Correct Answers: ${attempted - len}"),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Wrong Answers: $len"),
+              ),
+              Container(
+                // height: 530,
+                child: DataTable(
+                    dataRowHeight: 80,
+                    columns: [
+                      DataColumn(label: Text("Question")),
+                      DataColumn(label: Text("UserAnswer")),
+                      DataColumn(label: Text("RightAnswer")),
+                    ],
+                    rows: list),
+              ),
+              Center(
+                child: ElevatedButton(
+                  child: Text("Restart Quiz"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => QuizApp()));
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
