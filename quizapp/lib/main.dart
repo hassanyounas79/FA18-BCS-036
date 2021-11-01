@@ -5,12 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quizapp/mdlresult.dart';
 import 'package:quizapp/result.dart';
+import 'package:quizapp/splash.dart';
 import 'quiz_brain.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(MaterialApp(
-      home: QuizApp(),
+      home: Splash(),
     ));
 
 class QuizApp extends StatefulWidget {
