@@ -1,16 +1,21 @@
-# quizapp
+<h2>Quiz app</h2>
 
-A new Flutter application.
 
-## Getting Started
+<h3>App Icon</h3>
+<img src="scr/quizapp.png">
 
-This project is a starting point for a Flutter application.
+<h3>Splash</h3>
+<img src="scr/s (1).png">
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<h3>Timer</h3>
+<img src="scr/s (2).png">
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h3>Result</h3>
+<img src="scr/s (4).png">
+
+<h3>Drawer</h3>
+<img src="scr/s (8).png">
+
+<h3>Contact Us</h3>
+<img src="scr/s (9).png">

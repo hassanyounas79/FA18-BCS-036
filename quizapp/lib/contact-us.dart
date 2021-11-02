@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class Contact extends StatelessWidget {
   //const Contact({ Key? key }) : super(key: key);
   void launchWhatsApp({
-    String phone = "+00923086905740",
+    String phone = "+923086905740",
     String message = "",
   }) async {
     String url() {
@@ -41,11 +41,15 @@ class Contact extends StatelessWidget {
                 width: dev_width,
                 child: Text(
                   "Contact Us",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 50, left: 70, right: 70),
+                padding: const EdgeInsets.only(
+                    top: 50, left: 70, right: 70, bottom: 70),
                 child: Container(
                   height: 70,
                   child: Row(
@@ -60,6 +64,15 @@ class Contact extends StatelessWidget {
                       Image.asset("images/gmail.png"),
                     ],
                   ),
+                ),
+              ),
+              Center(
+                child: Divider(
+                  color: Colors.blue,
+                  thickness: 3,
+                  //height: 5,
+                  endIndent: 80,
+                  indent: 80,
                 ),
               )
             ],

@@ -32,7 +32,9 @@ class Result extends StatelessWidget {
             ]));
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -61,15 +63,21 @@ class Result extends StatelessWidget {
                 child: Text("Wrong Answers: $len"),
               ),
               Container(
-                // height: 530,
-                child: DataTable(
-                    dataRowHeight: 80,
-                    columns: [
-                      DataColumn(label: Text("Question")),
-                      DataColumn(label: Text("UserAnswer")),
-                      DataColumn(label: Text("RightAnswer")),
-                    ],
-                    rows: list),
+                height: MediaQuery.of(context).size.height - 400,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.only(left: 5, right: 5),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.values[1],
+                  child: DataTable(
+                      columnSpacing: 3.0,
+                      dataRowHeight: 80,
+                      columns: [
+                        DataColumn(label: Text("Question")),
+                        DataColumn(label: Text("UserAnswer")),
+                        DataColumn(label: Text("RightAnswer")),
+                      ],
+                      rows: list),
+                ),
               ),
               Center(
                 child: ElevatedButton(

@@ -10,13 +10,16 @@ import 'package:quizapp/splash.dart';
 import 'quiz_brain.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-QuizBrain quizBrain = QuizBrain();
+QuizBrain quizBrain;
 void main() => runApp(MaterialApp(
       home: Splash(),
     ));
 
 class QuizApp extends StatefulWidget {
   //const QuizApp({ Key? key }) : super(key: key);
+  QuizApp() {
+    quizBrain = QuizBrain();
+  }
 
   @override
   _QuizAppState createState() => _QuizAppState();
@@ -42,6 +45,7 @@ class _QuizAppState extends State<QuizApp> {
   }
 
   _dispDialog() {
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -118,38 +122,38 @@ class _QuizAppState extends State<QuizApp> {
         appBar: AppBar(
           title: Text("Quiz App"),
           bottomOpacity: 0,
-          backgroundColor: Colors.grey.shade400,
+          backgroundColor: Colors.redAccent,
           toolbarOpacity: 0.9,
         ),
         drawer: Drawer(
           child: ListView(
             children: [
-              DrawerHeader(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.amber[400],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "Quiz App",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
+              UserAccountsDrawerHeader(
+                accountName: Text("Hassan Younas"),
+                accountEmail: Text("hassanyounas79@gmail.com"),
+                currentAccountPicture: Image(image: AssetImage("images/R.png")),
+              ),
+              // DrawerHeader(
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       CircleAvatar(
+              //         radius: 40,
+              //         backgroundColor: Colors.amber[400],
+              //       ),
+              //       SizedBox(
+              //         height: 5,
+              //       ),
+              //       Text(
+              //         "Quiz App",
+              //         style: TextStyle(fontSize: 20),
+              //       ),
+              //     ],
+              //   ),
 
-                // decoration: BoxDecoration(color: Colors.black54),
-              ),
-              Divider(
-                thickness: 3,
-                indent: 40,
-                endIndent: 40,
-                color: Colors.blueGrey.shade600,
-              ),
+              //   // decoration: BoxDecoration(color: Colors.black54),
+              // ),
+
               ListTile(
                 subtitle: Text(
                   "Total Questions: 10",
@@ -174,7 +178,17 @@ class _QuizAppState extends State<QuizApp> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
+              Divider(
+                thickness: 3,
+                indent: 40,
+                endIndent: 40,
+                color: Colors.blueGrey.shade600,
+              ),
+              SizedBox(
+                height: 50,
+              ),
               ListTile(
+                leading: Icon(Icons.contact_mail_sharp),
                 onTap: () {
                   Navigator.push(
                       context,
