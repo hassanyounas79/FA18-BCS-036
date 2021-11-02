@@ -1,5 +1,7 @@
 <h2>Quiz app</h2>
 
+<img src="scr/vedio-gif.gif">>
+
 
 <h3>App Icon</h3>
 <img src="scr/quizapp.png">
