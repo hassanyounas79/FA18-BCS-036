@@ -15,7 +15,10 @@ class Aplphabet extends StatefulWidget {
 }
 
 class _AplphabetState extends State<Aplphabet> {
-  _AplphabetState(this.char_s, this.char_e);
+  _AplphabetState(this.char_s, this.char_e) {
+    a = this.char_s;
+    b = this.char_e;
+  }
   int sec = 5;
   bool first = false;
   Timer? time;
@@ -34,6 +37,8 @@ class _AplphabetState extends State<Aplphabet> {
     });
   }
 
+  int a = 1;
+  int b = 2;
   int char_s;
   int char_e;
 
@@ -79,8 +84,12 @@ class _AplphabetState extends State<Aplphabet> {
                     time?.cancel();
                     sec = 5;
                     first = true;
-                    if (char_s > "a".codeUnitAt(0)) char_s--;
-                    setState(() {});
+
+                    setState(() {
+                      if (char_s > this.a) {
+                        char_s--;
+                      }
+                    });
                   },
                   child: Text("BackWard"),
                 ),
@@ -89,7 +98,7 @@ class _AplphabetState extends State<Aplphabet> {
                     time?.cancel();
                     sec = 5;
                     first = true;
-                    if (char_s < char_e) char_s++;
+                    if (char_s < this.char_e) char_s++;
                     setState(() {});
                   },
                   child: Text("Forward"),
