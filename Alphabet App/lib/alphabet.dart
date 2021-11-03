@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class Aplphabet extends StatefulWidget {
   int s;
@@ -47,22 +48,6 @@ class _AplphabetState extends State<Aplphabet> {
         title: Text("Alphabet App"),
         centerTitle: true,
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: Image(
-                image: AssetImage("images/R.png"),
-              ),
-              accountName: Text(
-                "Hassan Younas",
-              ),
-              accountEmail: Text("FA18-BCS-036-A"),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: Colors.blue[300],
       body: Container(
         child: Column(
           children: [
@@ -75,11 +60,16 @@ class _AplphabetState extends State<Aplphabet> {
                 ),
               ),
             ),
-            Center(
-              child: Text(
+            Container(
+              height: 300,
+              child: Center(
+                  child: Text(
                 String.fromCharCode(char_s),
-                style: TextStyle(fontSize: 60),
-              ),
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 90,
+                ),
+              )),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
