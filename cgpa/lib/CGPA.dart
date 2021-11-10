@@ -62,7 +62,7 @@ class _CGPAState extends State<CGPA> {
                     Slider(
                         value: semester.toDouble(),
                         min: 1,
-                        max: 6,
+                        max: 8,
                         onChanged: (abc) {
                           setState(() {
                             semester = abc.round();
@@ -101,8 +101,9 @@ class _CGPAState extends State<CGPA> {
                                       value: CGPA[index],
                                       min: 0,
                                       max: 4,
+                                      
                                       activeColor: Colors.red[300],
-                                      divisions: 40,
+                                      divisions: 400,
                                       onChanged: (d) {
                                         setState(() {
                                           CGPA[index] = d;
