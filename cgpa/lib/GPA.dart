@@ -61,6 +61,7 @@ class _GPAState extends State<GPA> {
         context: context,
         builder: (context) => AlertDialog(
               title: Text("Course GPA"),
+              actionsAlignment: MainAxisAlignment.center,
               actions: [
                 Text(
                   "Your Grade : $grade",
