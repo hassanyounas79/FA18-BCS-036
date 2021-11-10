@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import 'main.dart';
@@ -29,7 +31,7 @@ class _SplashState extends State<Splash> {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
-          children: [
+          children:[
             Image(
               height: 500,
               width: 300,

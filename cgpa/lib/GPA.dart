@@ -67,7 +67,7 @@ class _GPAState extends State<GPA> {
                   style: TextStyle(fontSize: 20),
                 ),
                 Text(
-                  "Your GPA : $gp",
+                  "Your GPA : ${gp.toStringAsFixed(2)}",
                   style: TextStyle(fontSize: 20),
                 )
               ],
@@ -78,11 +78,17 @@ class _GPAState extends State<GPA> {
     int t;
     int GPA;
     if (lab) {
-      t = theory * (credit - 1);
-      GPA = t + labMarks;
-      GPA = (GPA / credit).round();
-      grade = getGrade(GPA);
-      dialog();
+      if (labMarks > 49) {
+        t = theory * (credit - 1);
+        GPA = t + labMarks;
+        GPA = (GPA / credit).round();
+        grade = getGrade(GPA);
+        dialog();
+      } else {
+        grade = "F";
+        gp = 0.0;
+        dialog();
+      }
     } else {
       GPA = theory;
       grade = getGrade(GPA);
@@ -111,128 +117,133 @@ class _GPAState extends State<GPA> {
           title: Text("GPA Calculator"),
           centerTitle: true,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
+        body: Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Do you have lab in this course?",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: lab,
+                        fillColor: MaterialStateProperty.resolveWith(getColor),
+                        checkColor: Colors.white,
+                        onChanged: (bool? abc) {
+                          setState(() {
+                            lab = abc!;
+                          });
+                        },
+                      ),
+                      Text("Yes"),
+                    ],
+                  ),
+                ],
+              )),
+              Expanded(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Do you have lab in this course?",
-                  style: TextStyle(fontSize: 20),
-                ),
-                Row(
                   children: [
-                    Checkbox(
-                      value: lab,
-                      fillColor: MaterialStateProperty.resolveWith(getColor),
-                      checkColor: Colors.white,
-                      onChanged: (bool? abc) {
-                        setState(() {
-                          lab = abc!;
-                        });
-                      },
+                    Text(
+                      "Credit Hour",
+                      style: TextStyle(fontSize: 24),
                     ),
-                    Text("Yes"),
-                  ],
-                ),
-              ],
-            )),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    "Credit Hour",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Slider(
-                          min: 1,
-                          max: 4,
-                          value: credit.toDouble(),
-                          onChanged: (double? abc) {
-                            setState(() {
-                              credit = abc!.round();
-                            });
-                          }),
-                      Text(
-                        "$credit",
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    "Theory Marks",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Slider(
-                          min: 0,
-                          max: 100,
-                          value: theory.toDouble(),
-                          onChanged: (double? abc) {
-                            setState(() {
-                              theory = abc!.round();
-                            });
-                          }),
-                      Text(
-                        "$theory",
-                        style: TextStyle(fontSize: 40),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            lab
-                ? Expanded(
-                    child: Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        Slider(
+                            min: 1,
+                            max: 4,
+                            activeColor: Colors.red,
+                            value: credit.toDouble(),
+                            onChanged: (double? abc) {
+                              setState(() {
+                                credit = abc!.round();
+                              });
+                            }),
                         Text(
-                          "Lab Marks",
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Slider(
-                                min: 0,
-                                max: 100,
-                                value: labMarks.toDouble(),
-                                onChanged: (double? abc) {
-                                  setState(() {
-                                    labMarks = abc!.round();
-                                  });
-                                }),
-                            Text(
-                              "$labMarks",
-                              style: TextStyle(fontSize: 40),
-                            ),
-                          ],
+                          "$credit",
+                          style: TextStyle(fontSize: 40),
                         ),
                       ],
                     ),
-                  )
-                : Text(""),
-            ElevatedButton(
-                onPressed: () {
-                  calculate();
-                },
-                child: Text("Calculate"))
-          ],
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      "Theory Marks",
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Slider(
+                            min: 0,
+                            max: 100,
+                            value: theory.toDouble(),
+                            onChanged: (double? abc) {
+                              setState(() {
+                                theory = abc!.round();
+                              });
+                            }),
+                        Text(
+                          "$theory",
+                          style: TextStyle(fontSize: 40),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              lab
+                  ? Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Lab Marks",
+                            style: TextStyle(fontSize: 24),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Slider(
+                                  min: 0,
+                                  max: 100,
+                                  activeColor: Colors.deepOrange,
+                                  value: labMarks.toDouble(),
+                                  onChanged: (double? abc) {
+                                    setState(() {
+                                      labMarks = abc!.round();
+                                    });
+                                  }),
+                              Text(
+                                "$labMarks",
+                                style: TextStyle(fontSize: 40),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  : Text(""),
+              ElevatedButton(
+                  onPressed: () {
+                    calculate();
+                  },
+                  child: Text("Calculate"))
+            ],
+          ),
         ),
       ),
     );
