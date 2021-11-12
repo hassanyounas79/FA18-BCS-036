@@ -31,7 +31,7 @@ class _SplashState extends State<Splash> {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
-          children:[
+          children:const[
             Image(
               height: 500,
               width: 300,
